@@ -58,9 +58,9 @@ typings/
 .env
 
 # lib dist
-lib
-es
-dist
+# lib
+# es
+# dist
 
 #idea
 .idea
