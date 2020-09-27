@@ -15,7 +15,7 @@
   "dependencies": {
     "@types/dplayer": "^1.25.0",
     "clsx": "^1.1.0",
-    "dplayer": "^1.25.1",
+    "dplayer": "easychen/DPlayer",
     "omit.js": "^2.0.2"
   },
   "devDependencies": {
