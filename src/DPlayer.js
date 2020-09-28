@@ -33,31 +33,40 @@ class DPlayerComponent extends React.Component {
     super(props, context);
   }
 
+  componentDidUpdate(prevProps)
+  {
+      if (this.props.options !== prevProps.options) 
+      {
+        this.dp = new DPlayer({
+          ...Object.assign({}, {
+            lang: 'zh-cn',
+            contextmenu: [],
+          }, this.props.options),
+          container: this.container
+        });
+        // this.componentDidMount();
+      }
+  }
+
   componentDidMount() {
     let { onLoad, options } = this.props;
     //new player
-    const player = this.dp = new DPlayer({
+    this.dp = new DPlayer({
       ...Object.assign({}, {
         lang: 'zh-cn',
-        contextmenu: [
-          {
-            text: 'Author',
-            link: 'https://github.com/hnsylitao'
-          },
-          {
-            text: 'GitHub',
-            link: 'https://github.com/MoePlayer/react-dplayer'
-          }
-        ],
+        contextmenu: [],
       }, options),
       container: this.container
     });
+
+
+
     //run load
-    onLoad && onLoad(player);
+    onLoad && onLoad(this.dp);
     //bind player events
     eventsProps.forEach(({ eventName, prop }) => {
       if (prop in this.props) {
-        player.on(eventName, this.props[prop])
+        this.dp.on(eventName, this.props[prop])
       }
     })
   }

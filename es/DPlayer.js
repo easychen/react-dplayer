@@ -77,6 +77,18 @@ var DPlayerComponent = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(DPlayerComponent, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.options !== prevProps.options) {
+        this.dp = new DPlayer(_objectSpread(_objectSpread({}, Object.assign({}, {
+          lang: 'zh-cn',
+          contextmenu: []
+        }, this.props.options)), {}, {
+          container: this.container
+        })); // this.componentDidMount();
+      }
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this = this;
@@ -85,27 +97,21 @@ var DPlayerComponent = /*#__PURE__*/function (_React$Component) {
           onLoad = _this$props.onLoad,
           options = _this$props.options; //new player
 
-      var player = this.dp = new DPlayer(_objectSpread(_objectSpread({}, Object.assign({}, {
+      this.dp = new DPlayer(_objectSpread(_objectSpread({}, Object.assign({}, {
         lang: 'zh-cn',
-        contextmenu: [{
-          text: 'Author',
-          link: 'https://github.com/hnsylitao'
-        }, {
-          text: 'GitHub',
-          link: 'https://github.com/MoePlayer/react-dplayer'
-        }]
+        contextmenu: []
       }, options)), {}, {
         container: this.container
       })); //run load
 
-      onLoad && onLoad(player); //bind player events
+      onLoad && onLoad(this.dp); //bind player events
 
       eventsProps.forEach(function (_ref) {
         var eventName = _ref.eventName,
             prop = _ref.prop;
 
         if (prop in _this.props) {
-          player.on(eventName, _this.props[prop]);
+          _this.dp.on(eventName, _this.props[prop]);
         }
       });
     }
